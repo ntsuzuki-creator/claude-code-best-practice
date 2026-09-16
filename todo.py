@@ -23,6 +23,8 @@ def save_tasks(tasks, storage_path=DEFAULT_STORAGE_PATH):
 
 
 def add_task(title, storage_path=DEFAULT_STORAGE_PATH, priority=DEFAULT_PRIORITY):
+    if priority not in PRIORITIES:
+        raise ValueError(f"invalid priority: {priority}")
     tasks = load_tasks(storage_path)
     next_id = max((task["id"] for task in tasks), default=0) + 1
     task = {"id": next_id, "title": title, "done": False, "priority": priority}

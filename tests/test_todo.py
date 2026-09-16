@@ -41,6 +41,11 @@ def test_add_task_accepts_low_priority(storage_path):
     assert task["priority"] == "low"
 
 
+def test_add_task_raises_for_invalid_priority(storage_path):
+    with pytest.raises(ValueError):
+        todo.add_task("牛乳を買う", storage_path, priority="urgent")
+
+
 def test_list_tasks_returns_added_tasks(storage_path):
     todo.add_task("牛乳を買う", storage_path)
     todo.add_task("洗濯する", storage_path)
