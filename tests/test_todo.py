@@ -17,6 +17,30 @@ def test_add_task_assigns_incrementing_id(storage_path):
     assert first["done"] is False
 
 
+def test_add_task_defaults_to_medium_priority(storage_path):
+    task = todo.add_task("牛乳を買う", storage_path)
+
+    assert task["priority"] == "medium"
+
+
+def test_add_task_accepts_high_priority(storage_path):
+    task = todo.add_task("牛乳を買う", storage_path, priority="high")
+
+    assert task["priority"] == "high"
+
+
+def test_add_task_accepts_medium_priority(storage_path):
+    task = todo.add_task("牛乳を買う", storage_path, priority="medium")
+
+    assert task["priority"] == "medium"
+
+
+def test_add_task_accepts_low_priority(storage_path):
+    task = todo.add_task("牛乳を買う", storage_path, priority="low")
+
+    assert task["priority"] == "low"
+
+
 def test_list_tasks_returns_added_tasks(storage_path):
     todo.add_task("牛乳を買う", storage_path)
     todo.add_task("洗濯する", storage_path)
@@ -24,6 +48,15 @@ def test_list_tasks_returns_added_tasks(storage_path):
     tasks = todo.list_tasks(storage_path)
 
     assert [task["title"] for task in tasks] == ["牛乳を買う", "洗濯する"]
+
+
+def test_list_tasks_exposes_priority(storage_path):
+    todo.add_task("牛乳を買う", storage_path, priority="high")
+    todo.add_task("洗濯する", storage_path, priority="low")
+
+    tasks = todo.list_tasks(storage_path)
+
+    assert [task["priority"] for task in tasks] == ["high", "low"]
 
 
 def test_complete_task_marks_task_done(storage_path):
