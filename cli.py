@@ -11,6 +11,12 @@ def main():
 
     add_parser = subparsers.add_parser("add", help="タスクを追加する")
     add_parser.add_argument("title", help="タスクの内容")
+    add_parser.add_argument(
+        "--priority",
+        choices=todo.PRIORITIES,
+        default=todo.DEFAULT_PRIORITY,
+        help="優先度 (high/medium/low, デフォルト: medium)",
+    )
 
     subparsers.add_parser("list", help="タスク一覧を表示する")
 
@@ -27,15 +33,16 @@ def main():
     args = parser.parse_args()
 
     if args.command == "add":
-        task = todo.add_task(args.title)
-        print(f"追加しました: [{task['id']}] {task['title']}")
+        task = todo.add_task(args.title, priority=args.priority)
+        print(f"追加しました: [{task['id']}] {task['title']} (優先度: {task['priority']})")
     elif args.command == "list":
         tasks = todo.list_tasks()
         if not tasks:
             print("タスクはありません")
         for task in tasks:
             status = "x" if task["done"] else " "
-            print(f"[{status}] {task['id']}: {task['title']}")
+            priority = task.get("priority", todo.DEFAULT_PRIORITY)
+            print(f"[{status}] {task['id']}: {task['title']} (優先度: {priority})")
     elif args.command == "done":
         task = todo.complete_task(args.task_id)
         print(f"完了にしました: [{task['id']}] {task['title']}")

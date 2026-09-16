@@ -18,6 +18,12 @@ pip install -r requirements.txt
 python cli.py add "牛乳を買う"
 ```
 
+優先度を指定してタスクを追加したいとき（省略時は medium）:
+
+```bash
+python cli.py add "資料を提出する" --priority high
+```
+
 登録されているタスクを一覧で確認したいとき:
 
 ```bash

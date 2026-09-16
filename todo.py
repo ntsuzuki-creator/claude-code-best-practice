@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 
 DEFAULT_STORAGE_PATH = Path("tasks.json")
+PRIORITIES = ["high", "medium", "low"]
+DEFAULT_PRIORITY = "medium"
 
 
 def load_tasks(storage_path=DEFAULT_STORAGE_PATH):
@@ -20,10 +22,10 @@ def save_tasks(tasks, storage_path=DEFAULT_STORAGE_PATH):
         json.dump(tasks, f, ensure_ascii=False, indent=2)
 
 
-def add_task(title, storage_path=DEFAULT_STORAGE_PATH):
+def add_task(title, storage_path=DEFAULT_STORAGE_PATH, priority=DEFAULT_PRIORITY):
     tasks = load_tasks(storage_path)
     next_id = max((task["id"] for task in tasks), default=0) + 1
-    task = {"id": next_id, "title": title, "done": False}
+    task = {"id": next_id, "title": title, "done": False, "priority": priority}
     tasks.append(task)
     save_tasks(tasks, storage_path)
     return task
