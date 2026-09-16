@@ -12,11 +12,40 @@ pip install -r requirements.txt
 
 ## 使い方
 
+新しいタスクを追加したいとき:
+
 ```bash
 python cli.py add "牛乳を買う"
+```
+
+登録されているタスクを一覧で確認したいとき:
+
+```bash
 python cli.py list
+```
+
+タスクが完了したときに、完了済みとしてマークしたいとき:
+
+```bash
 python cli.py done 1
+```
+
+不要になったタスクを削除したいとき:
+
+```bash
 python cli.py remove 1
+```
+
+完了済みタスクの件数だけを知りたいとき（進捗確認など）:
+
+```bash
+python cli.py count-done
+```
+
+未完了タスクの件数だけを知りたいとき（残タスクの把握など）:
+
+```bash
+python cli.py count-pending
 ```
 
 ## テスト

@@ -20,6 +20,10 @@ def main():
     remove_parser = subparsers.add_parser("remove", help="タスクを削除する")
     remove_parser.add_argument("task_id", type=int, help="タスクID")
 
+    subparsers.add_parser("count-done", help="完了済みタスクの数を表示する")
+
+    subparsers.add_parser("count-pending", help="未完了タスクの数を表示する")
+
     args = parser.parse_args()
 
     if args.command == "add":
@@ -38,6 +42,10 @@ def main():
     elif args.command == "remove":
         todo.remove_task(args.task_id)
         print(f"削除しました: {args.task_id}")
+    elif args.command == "count-done":
+        print(todo.count_done())
+    elif args.command == "count-pending":
+        print(todo.count_pending())
 
 
 if __name__ == "__main__":
