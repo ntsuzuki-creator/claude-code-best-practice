@@ -49,3 +49,13 @@ def remove_task(task_id, storage_path=DEFAULT_STORAGE_PATH):
     if len(remaining) == len(tasks):
         raise ValueError(f"task id {task_id} not found")
     save_tasks(remaining, storage_path)
+
+
+def count_done(storage_path=DEFAULT_STORAGE_PATH):
+    tasks = load_tasks(storage_path)
+    return sum(1 for task in tasks if task["done"])
+
+
+def count_pending(storage_path=DEFAULT_STORAGE_PATH):
+    tasks = load_tasks(storage_path)
+    return sum(1 for task in tasks if not task["done"])
